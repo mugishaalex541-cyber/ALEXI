@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 300" role="img" aria-label="Google Maps pin">
+  <defs>
+    <clipPath id="pinClip">
+      <path d="M120 12c-58 0-105 47-105 105 0 32 14 61 36 81l69 88 69-88c22-20 36-49 36-81 0-58-47-105-105-105z"/>
+    </clipPath>
+  </defs>
+  <path d="M120 12c-58 0-105 47-105 105 0 32 14 61 36 81l69 88 69-88c22-20 36-49 36-81 0-58-47-105-105-105z" fill="#ffffff"/>
+  <g clip-path="url(#pinClip)">
+    <rect x="-10" y="-10" width="260" height="320" fill="#ffffff"/>
+    <path d="M0 0h120L65 120H0z" fill="#d94c3d"/>
+    <path d="M120 0h120v105H50z" fill="#2a77d4"/>
+    <path d="M0 110h125L80 220H0z" fill="#f4c300"/>
+    <path d="M120 0L240 105V300H140L65 120z" fill="#25b34b"/>
+    <path d="M130 0L240 0V92L160 120z" fill="#4da3ff"/>
+    <circle cx="120" cy="105" r="36" fill="#ffffff"/>
+  </g>
+  <path d="M120 12c-58 0-105 47-105 105 0 32 14 61 36 81l69 88 69-88c22-20 36-49 36-81 0-58-47-105-105-105z" fill="none" stroke="#ffffff" stroke-width="6"/>
+</svg>

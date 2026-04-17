@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login - Young Sodium ICT Dashboard</title>
+  <meta name="description" content="Admin login for CEO live dashboard monitoring." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <style>
+    :root {
+      --bg1: #0d2744;
+      --bg2: #123b63;
+      --card: rgba(255, 255, 255, 0.94);
+      --line: #d1e2f5;
+      --text: #14304b;
+      --muted: #5a6f88;
+      --primary: #0f66bc;
+      --primary-dark: #0b4f91;
+      --error: #b3261e;
+      --ok: #0f9d6a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(880px 480px at 10% 8%, rgba(255, 255, 255, 0.16), transparent 72%),
+        radial-gradient(760px 440px at 92% 85%, rgba(141, 204, 255, 0.2), transparent 74%),
+        linear-gradient(155deg, var(--bg1), var(--bg2));
+    }
+
+    .login-card {
+      width: min(460px, 96vw);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 22px 44px rgba(7, 24, 46, 0.35);
+    }
+
+    .login-head h1 {
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+    }
+
+    .login-head p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .login-note {
+      margin-top: 14px;
+      border: 1px dashed #9bc0e4;
+      border-radius: 12px;
+      background: #f0f7ff;
+      padding: 10px;
+      color: #335a7d;
+      font-size: 0.88rem;
+    }
+
+    form {
+      margin-top: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid #bfd5ee;
+      border-radius: 11px;
+      padding: 11px 12px;
+      font: inherit;
+      color: var(--text);
+      background: #fff;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #5d9ed8;
+      box-shadow: 0 0 0 3px rgba(15, 102, 188, 0.14);
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(130deg, var(--primary), var(--primary-dark));
+    }
+
+    .btn-soft {
+      color: var(--primary-dark);
+      background: #e7f1ff;
+    }
+
+    .status {
+      margin-top: 10px;
+      min-height: 22px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .status.error {
+      color: var(--error);
+    }
+
+    .status.ok {
+      color: var(--ok);
+    }
+
+    .help-row {
+      margin-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .help-row a {
+      color: var(--primary-dark);
+      font-weight: 700;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="login-card" aria-label="Admin login card">
+    <header class="login-head">
+      <h1>Admin Dashboard Login</h1>
+      <p>Only authorized admin can access live CEO monitoring controls.</p>
+    </header>
+
+    <p class="login-note">
+      Demo credentials: <strong>admin</strong> / <strong>admin</strong>
+    </p>
+
+    <form id="adminLoginForm">
+      <label>
+        Username
+        <input id="adminUsername" name="username" type="text" autocomplete="username" required />
+      </label>
+
+      <label>
+        Password
+        <input id="adminPassword" name="password" type="password" autocomplete="current-password" required />
+      </label>
+
+      <div class="actions">
+        <button class="btn btn-primary" type="submit">Login to Dashboard</button>
+        <a href="index.html#dashboard" class="btn btn-soft">Back</a>
+      </div>
+    </form>
+
+    <p id="loginStatus" class="status" aria-live="polite"></p>
+
+    <div class="help-row">
+      <span>Tip: Pin the dashboard to home screen after login.</span>
+      <a href="index.html#dashboard">Open Dashboard</a>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById("adminLoginForm");
+    const usernameInput = document.getElementById("adminUsername");
+    const passwordInput = document.getElementById("adminPassword");
+    const status = document.getElementById("loginStatus");
+
+    const ADMIN_USERNAME = "admin";
+    const ADMIN_PASSWORD = "admin";
+    const AUTH_KEY = "ys-admin-auth";
+    const AUTH_TIME_KEY = "ys-admin-auth-time";
+
+    const query = new URLSearchParams(window.location.search);
+    const next = query.get("next") || "index.html#dashboard";
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value;
+
+      if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
+        status.textContent = "Invalid credentials. Please try again.";
+        status.className = "status error";
+        return;
+      }
+
+      sessionStorage.setItem(AUTH_KEY, "1");
+      sessionStorage.setItem(
+        AUTH_TIME_KEY,
+        new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      );
+
+      status.textContent = "Login successful. Redirecting to dashboard...";
+      status.className = "status ok";
+      window.location.href = next;
+    });
+  </script>
+</body>
+</html>

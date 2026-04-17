@@ -1,0 +1,25 @@
+{
+  "name": "Young Sodium ICT Dashboard",
+  "short_name": "YS Dashboard",
+  "description": "Live business monitoring dashboard for Young Sodium ICT Tech-Solution.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f2a47",
+  "theme_color": "#0b4f91",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/phone-icon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
