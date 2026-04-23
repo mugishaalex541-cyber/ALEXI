@@ -399,7 +399,7 @@ if (hasDashboard) {
 
   const startDashboard = () => {
     if (!isAdminAuthorized()) {
-      window.location.href = "admin-login.html?next=%2Findex.html%23dashboard";
+      window.location.href = "admin-login.html?next=index.html%23dashboard";
       return;
     }
     if (dashboardIntervalId) return;
@@ -421,7 +421,7 @@ if (hasDashboard) {
 
   dashboardElements.sendSummary.addEventListener("click", () => {
     if (!isAdminAuthorized()) {
-      window.location.href = "admin-login.html?next=%2Findex.html%23dashboard";
+      window.location.href = "admin-login.html?next=index.html%23dashboard";
       return;
     }
 
